@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,6 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#pressedHandle" onKeyReleased="#releaseHandle" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalProject.levelOneController">
    <children>
@@ -72,15 +75,82 @@
                         <Image url="@image/table.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@image/table.png" />
+                     </image>
+                  </ImageView>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                     <children>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="3.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@image/servingRing.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Label prefHeight="78.0" prefWidth="91.0" text="Score" GridPane.columnIndex="9">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="score" prefHeight="78.0" prefWidth="91.0" text="0" GridPane.columnIndex="10">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="clock" prefHeight="49.0" prefWidth="68.0" text="1:10" GridPane.columnIndex="9" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
                </children>
             </GridPane>
+            <ImageView fx:id="character" fitHeight="100.0" fitWidth="110.0" layoutX="93.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/chrome_dinosaur.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
-      <ImageView fx:id="character" fitHeight="100.0" fitWidth="110.0" layoutX="93.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@image/chrome_dinosaur.png" />
-         </image>
-      </ImageView>
       <Circle fx:id="test" fill="DODGERBLUE" layoutX="157.0" layoutY="-30.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
+      <Pane fx:id="pausePane" opacity="0.53" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" visible="false">
+         <children>
+            <Button fx:id="resume" layoutX="162.0" layoutY="130.0" mnemonicParsing="false" onMouseClicked="#resume" prefHeight="50.0" prefWidth="277.0" text="繼續" textAlignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="back" layoutX="162.0" layoutY="222.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="50.0" prefWidth="277.0" text="回到關卡選擇頁" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+      <Pane fx:id="finishPane" opacity="0.64" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
+         <children>
+            <Label layoutX="248.0" layoutY="200.0" prefHeight="37.0" prefWidth="76.0" text="分數: ">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
+            <Label fx:id="finalScore" layoutX="324.0" layoutY="201.0" text="0">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </Label>
+            <Button layoutX="100.0" layoutY="260.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="37.0" prefWidth="148.0" text="下一關">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+            <Button layoutX="324.0" layoutY="260.0" mnemonicParsing="false" onMouseClicked="#retry" prefHeight="37.0" prefWidth="148.0" text="再玩一次">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
