@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
@@ -35,12 +36,28 @@ public class levelMenuControllor implements Initializable{
 	ImageView character;
 	@FXML
 	ImageView level1;
+	@FXML
+	Pane levelOne;
+	@FXML
+	ImageView l11;
+	@FXML
+	ImageView l12;
+	@FXML
+	ImageView l13;
+	@FXML
+	Pane levelTwo;
+	@FXML
+	ImageView l21;
+	@FXML
+	ImageView l22;
+	@FXML
+	ImageView l23;
 	
 	boolean goNorth = false, goSouth = false, goEast = false, goWest = false;
 	boolean running = false;
 	boolean turnLeft = false;
 	
-    public void pressedHandle(KeyEvent e) {
+    public void pressedHandle(KeyEvent e) throws IOException {
         if (e.getCode() == KeyCode.UP) {
         	goNorth = true;
         }
@@ -57,6 +74,12 @@ public class levelMenuControllor implements Initializable{
         }
         if (e.getCode() == KeyCode.SHIFT) {
         	running = true;
+        }
+        if (e.getCode() == KeyCode.Q && inLevelOne(character.getLayoutX(), character.getLayoutY())) {
+        	entryLevelOne();
+        }
+        if (e.getCode() == KeyCode.Q && inLevelTwo(character.getLayoutX(), character.getLayoutY())) {
+        	entryLevelTwo();
         }
     }
     
@@ -118,11 +141,19 @@ public class levelMenuControllor implements Initializable{
     }
     
     public boolean inLevelOne(double x, double y) {
-    	double levelX = level1.getLayoutX();
-    	double levelY = level1.getLayoutY();
     	double characterX = x + (character.getFitWidth() / 2);
     	double characterY = y + (character.getFitHeight() / 2);
-    	if (characterX > levelX && characterX < (levelX + level1.getFitWidth()) && characterY > levelY && characterY < (levelY+ level1.getFitHeight())) {
+    	if (characterX > 414 && characterX < 414+96 && characterY > 68 && characterY < 68+91 && Main.open.get(0)) {
+    		return true;
+    	} else {
+    		return false;
+    	}
+    }
+    
+    public boolean inLevelTwo(double x, double y) {
+    	double characterX = x + (character.getFitWidth() / 2);
+    	double characterY = y + (character.getFitHeight() / 2);
+    	if (characterX > 366 && characterX < 366+96 && characterY > 188 && characterY < 188+91 && Main.open.get(1)) {
     		return true;
     	} else {
     		return false;
@@ -135,6 +166,13 @@ public class levelMenuControllor implements Initializable{
 		levelOneScene.getRoot().requestFocus();
 		Main.currentStage.setScene(levelOneScene);
     }
+
+    public void entryLevelTwo() throws IOException {
+    	Parent levelTwo = FXMLLoader.load(getClass().getResource("levelTwo.fxml"));
+		Scene levelTwoScene = new Scene(levelTwo);
+		levelTwoScene.getRoot().requestFocus();
+		Main.currentStage.setScene(levelTwoScene);
+    }
     
     boolean foot = true;
     Image image0 = new Image(getClass().getResource("./image/chrome_dinosaur.png").toExternalForm());
@@ -145,6 +183,27 @@ public class levelMenuControllor implements Initializable{
 	Image image5 = new Image(getClass().getResource("./image/chrome_dinosaur_right_foot_up_turn_left.png").toExternalForm());
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+    	levelOne.setVisible(Main.open.get(0));
+    	if (Main.stars.get(0) >= 1) {
+    		l11.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
+    	}
+    	if (Main.stars.get(0) >= 2) {
+    		l12.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
+    	}
+    	if (Main.stars.get(0) >= 3) {
+    		l13.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
+    	}
+    	levelTwo.setVisible(Main.open.get(1));
+    	if (Main.stars.get(1) >= 1) {
+    		l21.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
+    	}
+    	if (Main.stars.get(1) >= 2) {
+    		l22.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
+    	}
+    	if (Main.stars.get(1) >= 3) {
+    		l23.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
+    	}
+    	
     	Timeline fps = new Timeline(new KeyFrame(Duration.millis(1000/60),(e)-> {
     		double x = character.getLayoutX();
     		double y = character.getLayoutY();
@@ -163,14 +222,6 @@ public class levelMenuControllor implements Initializable{
     		}
     		if (goWest && !isLeftMargin(x)) {
     			character.setLayoutX(x - runSpeed);
-    		}
-    		if (inLevelOne(x, y)) {
-    			try {
-					entryLevelOne();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
     		}
 		}));
 		fps.setCycleCount(Timeline.INDEFINITE);

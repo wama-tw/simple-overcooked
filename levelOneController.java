@@ -63,6 +63,12 @@ public class levelOneController implements Initializable{
 	Pane finishPane;
 	@FXML
 	Label finalScore;
+	@FXML
+	ImageView star1;
+	@FXML
+	ImageView star2;
+	@FXML
+	ImageView star3;
 	
 	Image tomatoImage = new Image(getClass().getResource("./image/tomato.png").toExternalForm());
 	Image tomatoInPlateImage = new Image(getClass().getResource("./image/tomato_in_plate.png").toExternalForm());
@@ -109,38 +115,24 @@ public class levelOneController implements Initializable{
 	public void finish() {
 		finalScore.setText(Integer.toString(scoreValue));
 		finishPane.setVisible(true);
-	}
-	
-	public void progress() throws InterruptedException {
-		ImageView progressBar = new ImageView(getClass().getResource("./image/progressBar/progressBar-1.png").toExternalForm());
-		progressBar.setLayoutX(65);
-		progressBar.setLayoutY(200);
-		progressBar.setFitWidth(50);
-		progressBar.setFitHeight(50);
-    	paneField.getChildren().add(progressBar);
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-2.png").toExternalForm()));
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-3.png").toExternalForm()));
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-4.png").toExternalForm()));
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-5.png").toExternalForm()));
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-6.png").toExternalForm()));
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-7.png").toExternalForm()));
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-8.png").toExternalForm()));
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-9.png").toExternalForm()));
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-10.png").toExternalForm()));
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-11.png").toExternalForm()));
-    	TimeUnit.SECONDS.sleep(2/13);
-    	progressBar.setImage(new Image(getClass().getResource("./image/progressBar/progressBar-12.png").toExternalForm()));
-    	paneField.getChildren().remove(progressBar);
+		if (scoreValue > Main.scores.get(0)) {
+			Main.scores.set(0, scoreValue);
+			int stars = 0;
+			if (scoreValue >= 90) {
+				star1.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
+				Main.open.set(1, true);
+				stars++;
+			}
+			if (scoreValue >= 150) {
+				star2.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
+				stars++;
+			}
+			if (scoreValue >= 200) {
+				star3.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
+				stars++;
+			}
+			Main.stars.set(0, stars);
+		}
 	}
 	
 	public void back() throws IOException {
@@ -162,7 +154,7 @@ public class levelOneController implements Initializable{
     	paneField.requestFocus();
 	}
 	
-    public void pressedHandle(KeyEvent e) throws InterruptedException {
+    public void pressedHandle(KeyEvent e){
         if (e.getCode() == KeyCode.UP) {
         	goNorth = true;
         }
@@ -183,7 +175,6 @@ public class levelOneController implements Initializable{
         
         if (e.getCode() == KeyCode.Q) {
         	if (holding == -1 && isArroundChopBoard(handX, handY) && isEmpty == 1) {
-        		progress();
         		chopBoard.setImage(choppedTomatoOnChopBoardImage);
             	isEmpty = 2;
         	}
@@ -370,6 +361,7 @@ public class levelOneController implements Initializable{
 	Image image5 = new Image(getClass().getResource("./image/chrome_dinosaur_right_foot_up_turn_left.png").toExternalForm());
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+    	paneField.requestFocus();
     	tomatos.push(plateItem);
     	plateItem.imageView.setLayoutX(64);
     	plateItem.imageView.setLayoutY(185);
@@ -377,7 +369,7 @@ public class levelOneController implements Initializable{
     	plateItem.imageView.setFitHeight(50);
     	paneField.getChildren().add(plateItem.imageView);
     	Timeline fps = new Timeline(new KeyFrame(Duration.millis(1000/60),(e)-> {
-    		if (time != 0) {
+    		if (time > 0) {
 	    		double x = character.getLayoutX();
 	    		double y = character.getLayoutY();
 	    		int runSpeed = 3;

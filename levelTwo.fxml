@@ -12,11 +12,11 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#pressedHandle" onKeyReleased="#releaseHandle" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalProject.levelOneController">
+<AnchorPane fx:id="field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#pressedHandle" onKeyReleased="#releaseHandle" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalProject.levelTwoController">
    <children>
       <Pane fx:id="paneField" layoutX="-7.0" layoutY="-7.0" onKeyPressed="#pressedHandle" onKeyReleased="#releaseHandle" prefHeight="415.0" prefWidth="614.0">
          <children>
-            <GridPane fx:id="map" layoutX="7.0" layoutY="8.0" prefHeight="400.0" prefWidth="600.0">
+            <GridPane fx:id="map" layoutX="7.0" layoutY="8.0" onKeyPressed="#pressedHandle" onKeyReleased="#releaseHandle" prefHeight="400.0" prefWidth="600.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -52,6 +52,56 @@
                         <Image url="@image/table.png" />
                      </image>
                   </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <image>
+                        <Image url="@image/table.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="9" GridPane.rowIndex="2">
+                     <image>
+                        <Image url="@image/table.png" />
+                     </image>
+                  </ImageView>
+                  <Label prefHeight="78.0" prefWidth="91.0" text="Score" GridPane.columnIndex="9">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="score" prefHeight="78.0" prefWidth="91.0" text="0" GridPane.columnIndex="10">
+                     <font>
+                        <Font size="21.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="clock" prefHeight="49.0" prefWidth="68.0" text="2:00" GridPane.columnIndex="9" GridPane.rowIndex="8">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="9" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@image/table.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="9" GridPane.rowIndex="6">
+                     <image>
+                        <Image url="@image/table.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                     <image>
+                        <Image url="@image/table.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <image>
+                        <Image url="@image/table.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="7">
+                     <image>
+                        <Image url="@image/table.png" />
+                     </image>
+                  </ImageView>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="9" GridPane.rowIndex="5">
                      <children>
                         <ImageView fx:id="tamoto" fitHeight="50.0" fitWidth="50.0" layoutX="3.0" layoutY="-3.0">
@@ -70,16 +120,6 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <image>
-                        <Image url="@image/table.png" />
-                     </image>
-                  </ImageView>
-                  <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="9" GridPane.rowIndex="2">
-                     <image>
-                        <Image url="@image/table.png" />
-                     </image>
-                  </ImageView>
                   <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="9" GridPane.rowIndex="2">
                      <children>
                         <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="3.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
@@ -89,21 +129,24 @@
                         </ImageView>
                      </children>
                   </Pane>
-                  <Label prefHeight="78.0" prefWidth="91.0" text="Score" GridPane.columnIndex="9">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="score" prefHeight="78.0" prefWidth="91.0" text="0" GridPane.columnIndex="10">
-                     <font>
-                        <Font size="21.0" />
-                     </font>
-                  </Label>
-                  <Label fx:id="clock" prefHeight="49.0" prefWidth="68.0" text="1:10" GridPane.columnIndex="9" GridPane.rowIndex="8">
-                     <font>
-                        <Font size="26.0" />
-                     </font>
-                  </Label>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <children>
+                        <ImageView fx:id="chopBoard1" fitHeight="50.0" fitWidth="50.0" layoutX="2.0" layoutY="-3.0">
+                           <image>
+                              <Image url="@image/sink.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
+                  <Pane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="9" GridPane.rowIndex="6">
+                     <children>
+                        <ImageView fx:id="chopBoard11" fitHeight="50.0" fitWidth="50.0" layoutX="2.0" layoutY="-3.0">
+                           <image>
+                              <Image url="@image/veg.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </Pane>
                </children>
             </GridPane>
             <ImageView fx:id="character" fitHeight="100.0" fitWidth="110.0" layoutX="93.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
@@ -152,7 +195,7 @@
             </Button>
             <ImageView fitHeight="168.0" fitWidth="194.0" layoutX="216.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@image/levelOne.png" />
+                  <Image url="@image/levelTwo.png" />
                </image>
             </ImageView>
             <ImageView fx:id="star2" fitHeight="106.0" fitWidth="110.0" layoutX="247.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
