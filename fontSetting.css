@@ -1,0 +1,9 @@
+@font-face {
+   font-family: "pixel";
+   src: url("/font.tff");
+}
+
+.text {
+   -fx-font-family: "pixel";
+   -fx-font-style: bold;
+}

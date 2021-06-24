@@ -1,6 +1,5 @@
 package finalProject;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -10,29 +9,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class levelOneController implements Initializable{
@@ -69,6 +58,10 @@ public class levelOneController implements Initializable{
 	ImageView star2;
 	@FXML
 	ImageView star3;
+	@FXML
+	Button returnButton;
+	@FXML
+	Pane readme;
 	
 	Image tomatoImage = new Image(getClass().getResource("./image/tomato.png").toExternalForm());
 	Image tomatoInPlateImage = new Image(getClass().getResource("./image/tomato_in_plate.png").toExternalForm());
@@ -87,7 +80,8 @@ public class levelOneController implements Initializable{
 	boolean running = false;
 	boolean turnLeft = false;
 	int scoreValue = 0;
-	int time = 70;
+	int time = 75;
+	boolean state = false;
 	
 	class item {
 		public item(ImageView imageView, double x, double y, int type) {
@@ -115,8 +109,7 @@ public class levelOneController implements Initializable{
 	public void finish() {
 		finalScore.setText(Integer.toString(scoreValue));
 		finishPane.setVisible(true);
-		if (scoreValue > Main.scores.get(0)) {
-			Main.scores.set(0, scoreValue);
+		if (scoreValue >= 90) {
 			int stars = 0;
 			if (scoreValue >= 90) {
 				star1.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
@@ -131,9 +124,15 @@ public class levelOneController implements Initializable{
 				star3.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
 				stars++;
 			}
-			Main.stars.set(0, stars);
+			if (scoreValue > Main.scores.get(0)) {
+				Main.scores.set(0, scoreValue);
+				Main.stars.set(0, stars);
+			}
+		} else {
+			returnButton.setText("返回");
 		}
 	}
+	
 	
 	public void back() throws IOException {
 		Parent levelMenu = FXMLLoader.load(getClass().getResource("levelMenu.fxml"));
@@ -141,17 +140,13 @@ public class levelOneController implements Initializable{
 		levelMenuScene.getRoot().requestFocus();
 		Main.currentStage.setScene(levelMenuScene);
 	}
+	
 
 	public void retry() throws IOException {
 		Parent levelOne = FXMLLoader.load(getClass().getResource("levelOne.fxml"));
 		Scene levelOneScene = new Scene(levelOne);
 		levelOneScene.getRoot().requestFocus();
 		Main.currentStage.setScene(levelOneScene);
-	}
-	
-	public void resume() {
-    	pausePane.setVisible(false);
-    	paneField.requestFocus();
 	}
 	
     public void pressedHandle(KeyEvent e){
@@ -282,8 +277,9 @@ public class levelOneController implements Initializable{
         	running = false;
         }
         if (e.getCode() == KeyCode.ESCAPE) {
-        	pausePane.setVisible(true);
-        	pausePane.requestFocus();
+        	state = !state;
+        	pausePane.setVisible(state);
+        	// pausePane.requestFocus();
         }
     }
     
@@ -369,7 +365,8 @@ public class levelOneController implements Initializable{
     	plateItem.imageView.setFitHeight(50);
     	paneField.getChildren().add(plateItem.imageView);
     	Timeline fps = new Timeline(new KeyFrame(Duration.millis(1000/60),(e)-> {
-    		if (time > 0) {
+    		if (time > 0 && time < 71) {
+            	System.out.println(holding);
 	    		double x = character.getLayoutX();
 	    		double y = character.getLayoutY();
 	    		int runSpeed = 3;
@@ -393,15 +390,8 @@ public class levelOneController implements Initializable{
 	    			tomatos.get(holding).imageView.setLayoutY(handY - 25);
 	    		}
 	    		setHand(x ,y);
-	    		// test.setLayoutX(handX);
-	    		// test.setLayoutY(handY);
-	    		// if (isArroundChopBoard(handX, handY)) {
-		    	// 	System.out.println(handX);
-		    	// 	System.out.println(handY);
-	    		// }
     		}
 		}));
-    	// System.out.println(fps);
 		fps.setCycleCount(Timeline.INDEFINITE);
 		fps.play();
 		
@@ -434,9 +424,13 @@ public class levelOneController implements Initializable{
 		walk.play();
 		
 		Timeline timer = new Timeline(new KeyFrame(Duration.millis(1000),(e)-> {
+			time -= 1;
 			if (time == 0) {
+				time -= 1;
 				finish();
-			} else {
+			} else if (time == 70) {
+				readme.setVisible(false);
+			} else if (time < 70) {
 				String m = Integer.toString(time/60);
 				String s;
 				if ((time%60) < 10) {
@@ -445,10 +439,9 @@ public class levelOneController implements Initializable{
 					s = Integer.toString(time%60);
 				}
 				clock.setText(m+':'+s);
-				time -= 1;
 			}
 		}));
-		timer.setCycleCount(71);
+		timer.setCycleCount(76);
 		timer.play();
 	}
 

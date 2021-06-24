@@ -1,6 +1,5 @@
 package finalProject;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -9,29 +8,19 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class levelTwoController implements Initializable{
@@ -68,6 +57,8 @@ public class levelTwoController implements Initializable{
 	ImageView star2;
 	@FXML
 	ImageView star3;
+	@FXML
+	Button returnButton;
 	
 	Image tomatoImage = new Image(getClass().getResource("./image/tomato.png").toExternalForm());
 	Image vegImage = new Image(getClass().getResource("./image/veg.png").toExternalForm());
@@ -86,6 +77,8 @@ public class levelTwoController implements Initializable{
 	
 	@FXML
 	Circle test;
+	@FXML
+	Pane readme;
 	
 	double handX;
 	double handY;
@@ -93,7 +86,8 @@ public class levelTwoController implements Initializable{
 	boolean running = false;
 	boolean turnLeft = false;
 	int scoreValue = 0;
-	int time = 120;
+	int time = 125;
+	boolean state = false;
 	
 	class item {
 		public item(ImageView imageView, double x, double y, int type) {
@@ -121,8 +115,7 @@ public class levelTwoController implements Initializable{
 	public void finish() {
 		finalScore.setText(Integer.toString(scoreValue));
 		finishPane.setVisible(true);
-		if (scoreValue > Main.scores.get(1)) {
-			Main.scores.set(1, scoreValue);
+		if (scoreValue >= 90) {
 			int stars = 0;
 			if (scoreValue >= 90) {
 				star1.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
@@ -136,7 +129,12 @@ public class levelTwoController implements Initializable{
 				star3.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));
 				stars++;
 			}
-			Main.stars.set(1, stars);
+			if (scoreValue > Main.scores.get(1)) {
+				Main.scores.set(0, scoreValue);
+				Main.stars.set(1, stars);
+			}
+		} else {
+			returnButton.setText("返回");
 		}
 	}
 	
@@ -152,11 +150,6 @@ public class levelTwoController implements Initializable{
 		Scene levelTwoScene = new Scene(levelTwo);
 		levelTwoScene.getRoot().requestFocus();
 		Main.currentStage.setScene(levelTwoScene);
-	}
-	
-	public void resume() {
-    	pausePane.setVisible(false);
-    	paneField.requestFocus();
 	}
 	
     public void pressedHandle(KeyEvent e){
@@ -368,8 +361,9 @@ public class levelTwoController implements Initializable{
         	running = false;
         }
         if (e.getCode() == KeyCode.ESCAPE) {
-        	pausePane.setVisible(true);
-        	pausePane.requestFocus();
+        	state = !state;
+        	pausePane.setVisible(state);
+        	// pausePane.requestFocus();
         }
     }
     
@@ -471,7 +465,7 @@ public class levelTwoController implements Initializable{
     	plateItem.imageView.setFitHeight(50);
     	paneField.getChildren().add(plateItem.imageView);
     	Timeline fps = new Timeline(new KeyFrame(Duration.millis(1000/60),(e)-> {
-    		if (time > 0) {
+    		if (time > 0 && time < 121) {
 	    		double x = character.getLayoutX();
 	    		double y = character.getLayoutY();
 	    		int runSpeed = 3;
@@ -495,15 +489,8 @@ public class levelTwoController implements Initializable{
 	    			items.get(holding).imageView.setLayoutY(handY - 25);
 	    		}
 	    		setHand(x ,y);
-	    		// test.setLayoutX(handX);
-	    		// test.setLayoutY(handY);
-	    		// if (isArroundChopBoard(handX, handY)) {
-		    	// 	System.out.println(handX);
-		    	// 	System.out.println(handY);
-	    		// }
     		}
 		}));
-    	// System.out.println(fps);
 		fps.setCycleCount(Timeline.INDEFINITE);
 		fps.play();
 		
@@ -536,9 +523,12 @@ public class levelTwoController implements Initializable{
 		walk.play();
 		
 		Timeline timer = new Timeline(new KeyFrame(Duration.millis(1000),(e)-> {
+			time -= 1;
 			if (time == 0) {
 				finish();
-			} else {
+			} else if (time == 120) {
+				readme.setVisible(false);
+			} else if (time < 120) {
 				String m = Integer.toString(time / 60);
 				String s;
 				if ((time % 60) < 10) {
@@ -547,10 +537,9 @@ public class levelTwoController implements Initializable{
 					s = Integer.toString(time % 60);
 				}
 				clock.setText(m + ':' + s);
-				time -= 1;
 			}
 		}));
-		timer.setCycleCount(121);
+		timer.setCycleCount(126);
 		timer.play();
 	}
 

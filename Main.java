@@ -1,6 +1,5 @@
 package finalProject;
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -17,6 +16,8 @@ public class Main extends Application {
 	public static ArrayList<Integer> stars = new ArrayList<Integer>();
 	public static ArrayList<Boolean> open = new ArrayList<Boolean>();
 	
+	public static boolean firstOpen = false;
+	
     @Override
     public void start(Stage primaryStage) throws Exception{
     	for (int i = 0; i < 2; i++) {
@@ -29,7 +30,7 @@ public class Main extends Application {
     	currentStage = primaryStage;
         Parent root = FXMLLoader.load(getClass().getResource("menu.fxml"));
         menuScene = new Scene(root);
-        levelMenuScene = new Scene(FXMLLoader.load(getClass().getResource("levelMenu.fxml")));
+        // levelMenuScene = new Scene(FXMLLoader.load(getClass().getResource("levelMenu.fxml")));
         
         primaryStage.setTitle("OverCooked!");
         primaryStage.setScene(menuScene);

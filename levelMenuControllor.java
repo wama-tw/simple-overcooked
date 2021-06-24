@@ -1,6 +1,5 @@
 package finalProject;
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -8,30 +7,24 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.*;
-import javafx.scene.control.Label;
 import javafx.scene.image.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class levelMenuControllor implements Initializable{
 	@FXML
 	AnchorPane field;
+	@FXML
+	Pane white;
+	@FXML
+	Pane readme;
 	@FXML
 	ImageView character;
 	@FXML
@@ -56,6 +49,7 @@ public class levelMenuControllor implements Initializable{
 	boolean goNorth = false, goSouth = false, goEast = false, goWest = false;
 	boolean running = false;
 	boolean turnLeft = false;
+	boolean state = false;
 	
     public void pressedHandle(KeyEvent e) throws IOException {
         if (e.getCode() == KeyCode.UP) {
@@ -81,6 +75,11 @@ public class levelMenuControllor implements Initializable{
         if (e.getCode() == KeyCode.Q && inLevelTwo(character.getLayoutX(), character.getLayoutY())) {
         	entryLevelTwo();
         }
+        if (e.getCode() == KeyCode.ESCAPE) {
+        	state = !state;
+        	white.setVisible(state);
+        	readme.setVisible(state);
+        }
     }
     
     public void releaseHandle(KeyEvent e) {
@@ -101,13 +100,6 @@ public class levelMenuControllor implements Initializable{
         }
     }
     
-    // public void getMarginSize() {
-    // 	top = (field.getHeight() - (character.getFitHeight() / 2));
-    //	bottom = ((character.getFitHeight() / 2));
-    //	right = (field.getWidth() - (character.getFitWidth() / 2));
-    //	left = ((character.getFitWidth() / 2));
-    // }
-    
     public boolean isRightMargin(double x) {
     	if (x > (field.getWidth() - (character.getFitWidth() / 2))) {
     		return true;
@@ -125,7 +117,7 @@ public class levelMenuControllor implements Initializable{
     }
 
     public boolean isTopMargin(double y) {
-    	if (y < -((character.getFitHeight() / 2))) {
+    	if (y < -((character.getFitHeight() / 2)) + (field.getHeight() * (2.0/3))) {
     		return true;
     	} else {
     		return false;
@@ -143,7 +135,7 @@ public class levelMenuControllor implements Initializable{
     public boolean inLevelOne(double x, double y) {
     	double characterX = x + (character.getFitWidth() / 2);
     	double characterY = y + (character.getFitHeight() / 2);
-    	if (characterX > 414 && characterX < 414+96 && characterY > 68 && characterY < 68+91 && Main.open.get(0)) {
+    	if (characterX > 239 && characterX < 239+96 && characterY > 292 && characterY < 292+91 && Main.open.get(0)) {
     		return true;
     	} else {
     		return false;
@@ -153,7 +145,7 @@ public class levelMenuControllor implements Initializable{
     public boolean inLevelTwo(double x, double y) {
     	double characterX = x + (character.getFitWidth() / 2);
     	double characterY = y + (character.getFitHeight() / 2);
-    	if (characterX > 366 && characterX < 366+96 && characterY > 188 && characterY < 188+91 && Main.open.get(1)) {
+    	if (characterX > 407 && characterX < 407+96 && characterY > 263 && characterY < 263+91 && Main.open.get(1)) {
     		return true;
     	} else {
     		return false;
@@ -183,6 +175,12 @@ public class levelMenuControllor implements Initializable{
 	Image image5 = new Image(getClass().getResource("./image/chrome_dinosaur_right_foot_up_turn_left.png").toExternalForm());
     @Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+    	if (Main.firstOpen == false) {
+    		state = true;
+    		Main.firstOpen = true;
+        	white.setVisible(state);
+        	readme.setVisible(state);
+    	}
     	levelOne.setVisible(Main.open.get(0));
     	if (Main.stars.get(0) >= 1) {
     		l11.setImage(new Image(getClass().getResource("./image/star.png").toExternalForm()));

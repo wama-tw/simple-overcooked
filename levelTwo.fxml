@@ -14,6 +14,11 @@
 
 <AnchorPane fx:id="field" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#pressedHandle" onKeyReleased="#releaseHandle" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="finalProject.levelTwoController">
    <children>
+      <ImageView fitHeight="609.0" fitWidth="600.0" layoutY="-209.0" opacity="0.61">
+         <image>
+            <Image url="@image/bg_level.png" />
+         </image>
+      </ImageView>
       <Pane fx:id="paneField" layoutX="-7.0" layoutY="-7.0" onKeyPressed="#pressedHandle" onKeyReleased="#releaseHandle" prefHeight="415.0" prefWidth="614.0">
          <children>
             <GridPane fx:id="map" layoutX="7.0" layoutY="8.0" onKeyPressed="#pressedHandle" onKeyReleased="#releaseHandle" prefHeight="400.0" prefWidth="600.0">
@@ -62,19 +67,19 @@
                         <Image url="@image/table.png" />
                      </image>
                   </ImageView>
-                  <Label prefHeight="78.0" prefWidth="91.0" text="Score" GridPane.columnIndex="9">
+                  <Label prefHeight="78.0" prefWidth="91.0" text="小費" GridPane.columnIndex="5">
                      <font>
-                        <Font size="21.0" />
+                        <Font name="JackeyFont" size="26.0" />
                      </font>
                   </Label>
-                  <Label fx:id="score" prefHeight="78.0" prefWidth="91.0" text="0" GridPane.columnIndex="10">
+                  <Label fx:id="score" prefHeight="78.0" prefWidth="91.0" text="0" GridPane.columnIndex="6">
                      <font>
-                        <Font size="21.0" />
+                        <Font name="JackeyFont" size="26.0" />
                      </font>
                   </Label>
-                  <Label fx:id="clock" prefHeight="49.0" prefWidth="68.0" text="2:00" GridPane.columnIndex="9" GridPane.rowIndex="8">
+                  <Label fx:id="clock" alignment="CENTER" contentDisplay="TOP" prefHeight="49.0" prefWidth="68.0" text="2:00" GridPane.columnIndex="5" GridPane.rowIndex="8">
                      <font>
-                        <Font size="26.0" />
+                        <Font name="JackeyFont" size="24.0" />
                      </font>
                   </Label>
                   <ImageView fitHeight="45.0" fitWidth="56.0" pickOnBounds="true" GridPane.columnIndex="9" GridPane.rowIndex="3">
@@ -159,45 +164,45 @@
       <Circle fx:id="test" fill="DODGERBLUE" layoutX="157.0" layoutY="-30.0" radius="9.0" stroke="BLACK" strokeType="INSIDE" />
       <Pane fx:id="pausePane" opacity="0.53" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" visible="false">
          <children>
-            <Button fx:id="resume" layoutX="162.0" layoutY="130.0" mnemonicParsing="false" onMouseClicked="#resume" prefHeight="50.0" prefWidth="277.0" text="繼續" textAlignment="CENTER">
+            <Button fx:id="back" layoutX="162.0" layoutY="222.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="50.0" prefWidth="277.0" text="玩別的" textAlignment="CENTER">
                <font>
-                  <Font size="16.0" />
+                  <Font name="JackeyFont" size="22.0" />
                </font>
             </Button>
-            <Button fx:id="back" layoutX="162.0" layoutY="222.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="50.0" prefWidth="277.0" text="回到關卡選擇頁" textAlignment="CENTER">
+            <Label layoutX="193.0" layoutY="143.0" text="按 Esc 返回" textFill="WHITE">
                <font>
-                  <Font name="System Bold" size="16.0" />
+                  <Font name="JackeyFont" size="45.0" />
                </font>
-            </Button>
+            </Label>
          </children>
       </Pane>
       <Pane fx:id="finishPane" opacity="0.72" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" visible="false">
          <children>
-            <Label layoutX="253.0" layoutY="145.0" prefHeight="37.0" prefWidth="76.0" text="分數: ">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-            <Label fx:id="finalScore" layoutX="329.0" layoutY="146.0" text="0">
-               <font>
-                  <Font size="29.0" />
-               </font>
-            </Label>
-            <Button layoutX="100.0" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="37.0" prefWidth="148.0" text="下一關">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
-            <Button layoutX="324.0" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#retry" prefHeight="37.0" prefWidth="148.0" text="再玩一次">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Button>
             <ImageView fitHeight="168.0" fitWidth="194.0" layoutX="216.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/levelTwo.png" />
                </image>
             </ImageView>
+            <Label layoutX="253.0" layoutY="145.0" prefHeight="37.0" prefWidth="76.0" text="小費: ">
+               <font>
+                  <Font name="JackeyFont" size="29.0" />
+               </font>
+            </Label>
+            <Label fx:id="finalScore" layoutX="326.0" layoutY="148.0" text="0">
+               <font>
+                  <Font name="JackeyFont" size="29.0" />
+               </font>
+            </Label>
+            <Button fx:id="returnButton" layoutX="100.0" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#back" prefHeight="37.0" prefWidth="148.0" text="下一級">
+               <font>
+                  <Font name="JackeyFont" size="19.0" />
+               </font>
+            </Button>
+            <Button layoutX="324.0" layoutY="297.0" mnemonicParsing="false" onMouseClicked="#retry" prefHeight="37.0" prefWidth="148.0" text="再玩一次">
+               <font>
+                  <Font name="JackeyFont" size="19.0" />
+               </font>
+            </Button>
             <ImageView fx:id="star2" fitHeight="106.0" fitWidth="110.0" layoutX="247.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/emptyStar.png" />
@@ -211,6 +216,81 @@
             <ImageView fx:id="star3" fitHeight="106.0" fitWidth="110.0" layoutX="353.0" layoutY="181.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@image/emptyStar.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+      <Pane fx:id="readme" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <Pane opacity="0.76" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" />
+            <ImageView fitHeight="81.0" fitWidth="76.0" layoutX="25.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@image/tomato.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="62.0" fitWidth="62.0" layoutX="24.0" layoutY="296.0">
+               <image>
+                  <Image url="@image/veg.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="90.0" layoutX="94.0" layoutY="197.0" rotate="-5.7">
+               <image>
+                  <Image url="@image/arrow.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="92.0" fitWidth="92.0" layoutX="174.0" layoutY="223.0">
+               <image>
+                  <Image url="@image/chop_board.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="43.0" fitWidth="92.0" layoutX="85.0" layoutY="290.0" rotate="11.3">
+               <image>
+                  <Image url="@image/arrow2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="81.0" fitWidth="81.0" layoutX="28.0" layoutY="10.0">
+               <image>
+                  <Image url="@image/dirty_plate.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="55.0" fitWidth="115.0" layoutX="117.0" layoutY="52.0" rotate="-6.3">
+               <image>
+                  <Image url="@image/arrow.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="55.0" fitWidth="54.0" layoutX="156.0" layoutY="17.0" rotate="90.0">
+               <image>
+                  <Image url="@image/sink.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="81.0" fitWidth="81.0" layoutX="227.0" layoutY="82.0">
+               <image>
+                  <Image url="@image/clean_plate.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="50.0" fitWidth="76.0" layoutX="299.0" layoutY="147.0" rotate="10.3">
+               <image>
+                  <Image url="@image/arrow.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="48.0" fitWidth="100.0" layoutX="254.0" layoutY="237.0" rotate="16.7">
+               <image>
+                  <Image url="@image/arrow2.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="81.0" fitWidth="81.0" layoutX="366.0" layoutY="199.0">
+               <image>
+                  <Image url="@image/salad.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="100.0" fitWidth="100.0" layoutX="490.0" layoutY="88.0">
+               <image>
+                  <Image url="@image/servingRing.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="43.0" fitWidth="92.0" layoutX="446.0" layoutY="177.0">
+               <image>
+                  <Image url="@image/arrow2.png" />
                </image>
             </ImageView>
          </children>
